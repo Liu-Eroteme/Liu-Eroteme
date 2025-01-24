@@ -9,6 +9,19 @@
       rel="stylesheet"
     />
     <style>
+      /* Text size controls */
+      #size-xs:checked ~ .container { font-size: 1.1rem; }
+      #size-s:checked ~ .container { font-size: 1.25rem; }
+      #size-m:checked ~ .container { font-size: 1.4rem; }
+      #size-l:checked ~ .container { font-size: 1.6rem; }
+      #size-xl:checked ~ .container { font-size: 1.8rem; }
+      
+      /* Weight control */
+      #weight-bold:checked ~ .container { font-weight: 600; }
+      
+      /* Spacing control */
+      #spacing-double:checked ~ .container { line-height: 2.5; }
+
       /* Hide radio inputs visually while keeping them functional */
       .controls input {
         position: absolute;
@@ -97,19 +110,6 @@
         left: 1.75rem;
         background: #f4f1ea;
       }
-      
-      /* Text size controls */
-      #size-xs:checked ~ .container { font-size: 1.1rem; }
-      #size-s:checked ~ .container { font-size: 1.25rem; }
-      #size-m:checked ~ .container { font-size: 1.4rem; }
-      #size-l:checked ~ .container { font-size: 1.6rem; }
-      #size-xl:checked ~ .container { font-size: 1.8rem; }
-      
-      /* Weight control */
-      #weight-bold:checked ~ .container { font-weight: 600; }
-      
-      /* Spacing control */
-      #spacing-double:checked ~ .container { line-height: 2.5; }
       
       /* Selected state */
       .size-controls input:checked + label {
