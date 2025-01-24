@@ -9,119 +9,77 @@
       rel="stylesheet"
     />
     <style>
-      /* Text size controls */
-      .controls #size-xs:checked ~ .container { font-size: 1.1rem; }
-      .controls #size-s:checked ~ .container { font-size: 1.25rem; }
-      .controls #size-m:checked ~ .container { font-size: 1.4rem; }
-      .controls #size-l:checked ~ .container { font-size: 1.6rem; }
-      .controls #size-xl:checked ~ .container { font-size: 1.8rem; }
-      
-      /* Weight control */
-      .controls #weight-bold:checked ~ .container { font-weight: 600; }
-      
-      /* Spacing control */
-      .controls #spacing-double:checked ~ .container { line-height: 2.5; }
+      /* =========================
+         RADIO & CHECKBOX STATES
+         THAT CONTROL THE .container
+         ========================= */
+      #size-xs:checked ~ .container {
+        font-size: 1.1rem;
+      }
+      #size-s:checked ~ .container {
+        font-size: 1.25rem;
+      }
+      #size-m:checked ~ .container {
+        font-size: 1.4rem;
+      }
+      #size-l:checked ~ .container {
+        font-size: 1.6rem;
+      }
+      #size-xl:checked ~ .container {
+        font-size: 1.8rem;
+      }
+      #weight-bold:checked ~ .container {
+        font-weight: 600;
+      }
+      #spacing-double:checked ~ .container {
+        line-height: 2.5;
+      }
 
-      /* Hide radio inputs visually while keeping them functional */
-      .controls input[type="radio"],
-      .controls input[type="checkbox"] {
+      /* =========================
+         TOGGLE ANIMATION STYLES
+         (SWITCH BACKGROUND & KNOB)
+         WHEN CHECKED
+         ========================= */
+      /* For the Bold switch */
+      #weight-bold:checked ~ .controls .toggle-switch label[for="weight-bold"] {
+        background: #363636;
+      }
+      #weight-bold:checked
+        ~ .controls
+        .toggle-switch
+        label[for="weight-bold"]::after {
+        left: 1.75rem;
+        background: #f4f1ea;
+      }
+      /* For the 2× Space switch */
+      #spacing-double:checked
+        ~ .controls
+        .toggle-switch
+        label[for="spacing-double"] {
+        background: #363636;
+      }
+      #spacing-double:checked
+        ~ .controls
+        .toggle-switch
+        label[for="spacing-double"]::after {
+        left: 1.75rem;
+        background: #f4f1ea;
+      }
+
+      /* =========================
+         HIDE THE CONTROLLING INPUTS
+         BUT KEEP THEM FUNCTIONAL
+         ========================= */
+      input[type="radio"],
+      input[type="checkbox"] {
         position: absolute;
         opacity: 0;
         pointer-events: none;
       }
-      
-      /* Controls container */
-      .controls {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        background: rgba(244, 241, 234, 0.95);
-        padding: 0.8rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-      }
 
-      .size-controls {
-        display: flex;
-        gap: 0.2rem;
-      }
-      
-      .size-controls label {
-        display: inline-block;
-        padding: 0.3rem 0.6rem;
-        background: rgba(255, 255, 255, 0.7);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .size-controls label:first-of-type {
-        border-radius: 4px 0 0 4px;
-      }
-
-      .size-controls label:last-of-type {
-        border-radius: 0 4px 4px 0;
-      }
-      
-      .size-controls label:hover {
-        background: rgba(255, 255, 255, 0.9);
-      }
-
-      /* Toggle switch style */
-      .toggle-switch {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .toggle-switch label {
-        position: relative;
-        display: inline-block;
-        width: 3.2rem;
-        height: 1.6rem;
-        background: rgba(255, 255, 255, 0.7);
-        border-radius: 1rem;
-        cursor: pointer;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        transition: all 0.2s;
-      }
-
-      .toggle-switch label::after {
-        content: '';
-        position: absolute;
-        top: 0.15rem;
-        left: 0.15rem;
-        width: 1.2rem;
-        height: 1.2rem;
-        border-radius: 50%;
-        background: #363636;
-        transition: all 0.2s;
-      }
-
-      .toggle-switch input:checked + label {
-        background: #363636;
-      }
-
-      .toggle-switch input:checked + label::after {
-        left: 1.75rem;
-        background: #f4f1ea;
-      }
-      
-      /* Selected state */
-      .size-controls input:checked + label {
-        background: #363636;
-        color: #f4f1ea;
-      }
-
-      .toggle-switch span {
-        font-size: 0.9rem;
-      }
-
+      /* =========================
+         MAIN BASE STYLING
+         ========================= */
       body {
         margin: 0;
         min-height: 100vh;
@@ -142,6 +100,9 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         border-radius: 16px;
         margin: 2rem;
+      }
+      p {
+        margin: 1.2rem 0;
       }
       .math-section {
         margin: 1.5rem 0;
@@ -164,37 +125,110 @@
         font-size: 0.95em;
         color: #4a4a4a;
       }
-      p {
-        margin: 1.2rem 0;
+
+      /* =========================
+         CONTROLS CONTAINER
+         ========================= */
+      .controls {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(244, 241, 234, 0.95);
+        padding: 0.8rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      /* =========================
+         SIZE CONTROLS (RADIOS)
+         ========================= */
+      .size-controls {
+        display: flex;
+        gap: 0.2rem;
+      }
+      .size-controls label {
+        display: inline-block;
+        padding: 0.3rem 0.6rem;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .size-controls label:first-of-type {
+        border-radius: 4px 0 0 4px;
+      }
+      .size-controls label:last-of-type {
+        border-radius: 0 4px 4px 0;
+      }
+      .size-controls label:hover {
+        background: rgba(255, 255, 255, 0.9);
+      }
+      /* Highlight the active size label */
+      #size-xs:checked ~ .controls .size-controls label[for="size-xs"],
+      #size-s:checked ~ .controls .size-controls label[for="size-s"],
+      #size-m:checked ~ .controls .size-controls label[for="size-m"],
+      #size-l:checked ~ .controls .size-controls label[for="size-l"],
+      #size-xl:checked ~ .controls .size-controls label[for="size-xl"] {
+        background: #363636;
+        color: #f4f1ea;
+      }
+
+      /* =========================
+         TOGGLE SWITCHES
+         ========================= */
+      .toggle-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .toggle-switch label {
+        position: relative;
+        display: inline-block;
+        width: 3.2rem;
+        height: 1.6rem;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 1rem;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        transition: all 0.2s;
+      }
+      .toggle-switch label::after {
+        content: "";
+        position: absolute;
+        top: 0.15rem;
+        left: 0.15rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        background: #363636;
+        transition: all 0.2s;
+      }
+      .toggle-switch span {
+        font-size: 0.9rem;
       }
     </style>
   </head>
   <body>
-    <div class="controls">
-      <!-- Hidden inputs for text controls -->
-      <input type="radio" name="size" id="size-xs">
-      <input type="radio" name="size" id="size-s" checked>
-      <input type="radio" name="size" id="size-m">
-      <input type="radio" name="size" id="size-l">
-      <input type="radio" name="size" id="size-xl">
-      <input type="checkbox" id="weight-bold">
-      <input type="checkbox" id="spacing-double">
-      <div class="size-controls">
-        <label for="size-xs">A-</label>
-        <label for="size-s">A</label>
-        <label for="size-m">A+</label>
-        <label for="size-l">A++</label>
-        <label for="size-xl">A+++</label>
-      </div>
-      <div class="toggle-switch">
-        <label for="weight-bold"></label>
-        <span>Bold</span>
-      </div>
-      <div class="toggle-switch">
-        <label for="spacing-double"></label>
-        <span>2× Space</span>
-      </div>
-    </div>
+    <!--
+      All controlling radio & checkbox inputs go here
+      so that .container & .controls appear *after* them.
+      This allows the ~ (tilde) sibling combinator to work
+      for both font/line toggles and the switch animations.
+    -->
+    <input type="radio" name="size" id="size-xs" />
+    <input type="radio" name="size" id="size-s" checked />
+    <input type="radio" name="size" id="size-m" />
+    <input type="radio" name="size" id="size-l" />
+    <input type="radio" name="size" id="size-xl" />
+    <input type="checkbox" id="weight-bold" />
+    <input type="checkbox" id="spacing-double" />
+
+    <!-- Main content container -->
     <div class="container">
       <div class="math-section">
         <p>Ah, but i think i disagree:</p>
@@ -369,7 +403,8 @@
 
         <p>
           - Q(π|s) is an internal (posterior/policy) distribution that the agent
-          computes based on its model of how states relate to observations.<br /><br />
+          computes based on its model of how states relate to observations.<br />
+          <br />
           - P(o|s) is the generative model for observations given states.
         </p>
 
@@ -564,6 +599,25 @@
             having a TV and beer evening.. ''^^
           </p>
         </div>
+      </div>
+    </div>
+
+    <!-- The fixed controls menu -->
+    <div class="controls">
+      <div class="size-controls">
+        <label for="size-xs">A-</label>
+        <label for="size-s">A</label>
+        <label for="size-m">A+</label>
+        <label for="size-l">A++</label>
+        <label for="size-xl">A+++</label>
+      </div>
+      <div class="toggle-switch">
+        <label for="weight-bold"></label>
+        <span>Bold</span>
+      </div>
+      <div class="toggle-switch">
+        <label for="spacing-double"></label>
+        <span>2× Space</span>
       </div>
     </div>
   </body>
