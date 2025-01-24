@@ -169,26 +169,29 @@
     </style>
   </head>
   <body>
+    <!-- Hidden inputs for text controls -->
+    <input type="radio" name="size" id="size-xs">
+    <input type="radio" name="size" id="size-s" checked>
+    <input type="radio" name="size" id="size-m">
+    <input type="radio" name="size" id="size-l">
+    <input type="radio" name="size" id="size-xl">
+    <input type="checkbox" id="weight-bold">
+    <input type="checkbox" id="spacing-double">
+    
+    <!-- Control panel -->
     <div class="controls">
       <div class="size-controls">
-        <input type="radio" name="size" id="size-xs">
         <label for="size-xs">A-</label>
-        <input type="radio" name="size" id="size-s" checked>
         <label for="size-s">A</label>
-        <input type="radio" name="size" id="size-m">
         <label for="size-m">A+</label>
-        <input type="radio" name="size" id="size-l">
         <label for="size-l">A++</label>
-        <input type="radio" name="size" id="size-xl">
         <label for="size-xl">A+++</label>
       </div>
       <div class="toggle-switch">
-        <input type="checkbox" id="weight-bold">
         <label for="weight-bold"></label>
         <span>Bold</span>
       </div>
       <div class="toggle-switch">
-        <input type="checkbox" id="spacing-double">
         <label for="spacing-double"></label>
         <span>2× Space</span>
       </div>
