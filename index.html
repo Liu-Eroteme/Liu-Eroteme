@@ -9,6 +9,118 @@
       rel="stylesheet"
     />
     <style>
+      /* Hide radio inputs visually while keeping them functional */
+      .controls input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      /* Controls container */
+      .controls {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(244, 241, 234, 0.95);
+        padding: 0.8rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .size-controls {
+        display: flex;
+        gap: 0.2rem;
+      }
+      
+      .size-controls label {
+        display: inline-block;
+        padding: 0.3rem 0.6rem;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .size-controls label:first-of-type {
+        border-radius: 4px 0 0 4px;
+      }
+
+      .size-controls label:last-of-type {
+        border-radius: 0 4px 4px 0;
+      }
+      
+      .size-controls label:hover {
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      /* Toggle switch style */
+      .toggle-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .toggle-switch label {
+        position: relative;
+        display: inline-block;
+        width: 3.2rem;
+        height: 1.6rem;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 1rem;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        transition: all 0.2s;
+      }
+
+      .toggle-switch label::after {
+        content: '';
+        position: absolute;
+        top: 0.15rem;
+        left: 0.15rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        background: #363636;
+        transition: all 0.2s;
+      }
+
+      .toggle-switch input:checked + label {
+        background: #363636;
+      }
+
+      .toggle-switch input:checked + label::after {
+        left: 1.75rem;
+        background: #f4f1ea;
+      }
+      
+      /* Text size controls */
+      #size-xs:checked ~ .container { font-size: 1.1rem; }
+      #size-s:checked ~ .container { font-size: 1.25rem; }
+      #size-m:checked ~ .container { font-size: 1.4rem; }
+      #size-l:checked ~ .container { font-size: 1.6rem; }
+      #size-xl:checked ~ .container { font-size: 1.8rem; }
+      
+      /* Weight control */
+      #weight-bold:checked ~ .container { font-weight: 600; }
+      
+      /* Spacing control */
+      #spacing-double:checked ~ .container { line-height: 2.5; }
+      
+      /* Selected state */
+      .size-controls input:checked + label {
+        background: #363636;
+        color: #f4f1ea;
+      }
+
+      .toggle-switch span {
+        font-size: 0.9rem;
+      }
+
       body {
         margin: 0;
         min-height: 100vh;
@@ -57,6 +169,30 @@
     </style>
   </head>
   <body>
+    <div class="controls">
+      <div class="size-controls">
+        <input type="radio" name="size" id="size-xs">
+        <label for="size-xs">A-</label>
+        <input type="radio" name="size" id="size-s" checked>
+        <label for="size-s">A</label>
+        <input type="radio" name="size" id="size-m">
+        <label for="size-m">A+</label>
+        <input type="radio" name="size" id="size-l">
+        <label for="size-l">A++</label>
+        <input type="radio" name="size" id="size-xl">
+        <label for="size-xl">A+++</label>
+      </div>
+      <div class="toggle-switch">
+        <input type="checkbox" id="weight-bold">
+        <label for="weight-bold"></label>
+        <span>Bold</span>
+      </div>
+      <div class="toggle-switch">
+        <input type="checkbox" id="spacing-double">
+        <label for="spacing-double"></label>
+        <span>2× Space</span>
+      </div>
+    </div>
     <div class="container">
       <div class="math-section">
         <p>Ah, but i think i disagree:</p>
