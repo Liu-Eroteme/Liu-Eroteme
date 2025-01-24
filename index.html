@@ -10,21 +10,21 @@
     />
     <style>
       /* Text size controls */
-      #size-xs:checked ~ .container { font-size: 1.1rem; }
-      #size-s:checked ~ .container { font-size: 1.25rem; }
-      #size-m:checked ~ .container { font-size: 1.4rem; }
-      #size-l:checked ~ .container { font-size: 1.6rem; }
-      #size-xl:checked ~ .container { font-size: 1.8rem; }
+      .controls #size-xs:checked ~ .container { font-size: 1.1rem; }
+      .controls #size-s:checked ~ .container { font-size: 1.25rem; }
+      .controls #size-m:checked ~ .container { font-size: 1.4rem; }
+      .controls #size-l:checked ~ .container { font-size: 1.6rem; }
+      .controls #size-xl:checked ~ .container { font-size: 1.8rem; }
       
       /* Weight control */
-      #weight-bold:checked ~ .container { font-weight: 600; }
+      .controls #weight-bold:checked ~ .container { font-weight: 600; }
       
       /* Spacing control */
-      #spacing-double:checked ~ .container { line-height: 2.5; }
+      .controls #spacing-double:checked ~ .container { line-height: 2.5; }
 
       /* Hide radio inputs visually while keeping them functional */
-      input[type="radio"],
-      input[type="checkbox"] {
+      .controls input[type="radio"],
+      .controls input[type="checkbox"] {
         position: absolute;
         opacity: 0;
         pointer-events: none;
