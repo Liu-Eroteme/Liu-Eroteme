@@ -23,7 +23,8 @@
       #spacing-double:checked ~ .container { line-height: 2.5; }
 
       /* Hide radio inputs visually while keeping them functional */
-      .controls input {
+      input[type="radio"],
+      input[type="checkbox"] {
         position: absolute;
         opacity: 0;
         pointer-events: none;
@@ -169,17 +170,15 @@
     </style>
   </head>
   <body>
-    <!-- Hidden inputs for text controls -->
-    <input type="radio" name="size" id="size-xs">
-    <input type="radio" name="size" id="size-s" checked>
-    <input type="radio" name="size" id="size-m">
-    <input type="radio" name="size" id="size-l">
-    <input type="radio" name="size" id="size-xl">
-    <input type="checkbox" id="weight-bold">
-    <input type="checkbox" id="spacing-double">
-    
-    <!-- Control panel -->
     <div class="controls">
+      <!-- Hidden inputs for text controls -->
+      <input type="radio" name="size" id="size-xs">
+      <input type="radio" name="size" id="size-s" checked>
+      <input type="radio" name="size" id="size-m">
+      <input type="radio" name="size" id="size-l">
+      <input type="radio" name="size" id="size-xl">
+      <input type="checkbox" id="weight-bold">
+      <input type="checkbox" id="spacing-double">
       <div class="size-controls">
         <label for="size-xs">A-</label>
         <label for="size-s">A</label>
