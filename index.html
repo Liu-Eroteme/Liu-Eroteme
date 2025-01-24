@@ -29,7 +29,141 @@
   <body>
     <div class="container">
       <!-- Replace this with your text -->
-      <p>Your text goes here.</p>
+      <p>
+        Ah, but i think i disagree: The only problem is.. tightly knit nuclear
+        families and strong religious beliefs are very low (Information
+        theoretical-) entropy environments, which limits cognitve development.
+        Let me prove this beyond reasonable doubt..: If we start with the KL
+        (Kullback-Leibler) divergence between distributions Q and P:
+        respectively probability distribution of policy π given state s_t under
+        distribution Q; and the probability distribution of outcome
+        (observation) o_t given state s_t under distribution P.. KL(Q || P) = Σₙ
+        Eq(st)[ Q(π | st) * ln(Q(π | st) / P(ot | st)) ] (which is the deciding
+        factor in the variational free energy term) And we must consider that α
+        may be asymmetrical, since the term Q(π | st) * ln(Q(π | st) -
+        representing the agent's internal uncertainty - is only fully determined
+        by policy space and state when α approaches zero. This non-zero case is
+        particularly revealing, as it exposes fundamental properties about
+        variational free energy that cannot be simplified easily. To start,
+        alpha: 𝛼 = Eq(st)[ H(Q(π|st)) ] / Eq(st,π)[ H(P(o_t|s_t)) ] ​first, we
+        fill in the Shannon entropy.. H(Q(π|st)) = - Σπ Q(π|st) ln Q(π|st)
+        H(P(o_t|s_t)) = - Σo P(o_t|s_t) ln P(o_t|s_t) then we take the KL
+        divergence..: KL(Q || P) = Σ_n Eq(st)[ Q(π|st) * ln( Q(π|st) / P(o_t|s_t
+        ) ) ] and expand our ln( Q / P ) term (dropping our assumption of
+        symmetrical α) .. = Σ_n [ Eq(st)[ Q(π|st) ln Q(π|st) ] - Eq(st)[ Q(π|st)
+        ln P(o_t|s_t) ] ] .. to relate KL to alpha. Notice: Eq(st)[ Q(π|st) ln
+        Q(π|st)] = - Eq(st)[ H(Q(π|st)) ] Also note that: Eq(st)[ H(Q(π|st)) ] =
+        𝛼 * Eq(st,π)[H(P(o_t|s_t)) ] So we can rewrite KL(Q||P) using alpha:
+        KL(Q || P) = - Eq(st)[ H(Q(π|st)) ] - Eq(st)[ Q(π|st) ln P(o_t|s_t) ]
+        And by substituting: Eq(st)[ H(Q(π|st)) ] = 𝛼 * Eq(st,π)[ H(P(o_t|s_t))
+        ], we get: KL(Q || P) = -𝛼 * Eq(st,π)[ H(P(o_t|s_t)) ] - Eq(st)[ Q(π|st)
+        ln P(o_t|s_t) ]. and we are done with this part.. let's look at alpha
+        from another perspective: Lets.. examine one straightforward way to
+        define a “distribution” of 𝛼 values across states (or time).: if 𝛼 is
+        treated as a ratio of local entropies, suppose each state s has
+        probability Q(s), and define.. α(s)= H(P(o∣s)) / H(Q(π∣s)) ​ ..assuming
+        H() - the Shannon entropy - stays positive, then 𝛼 becomes a random
+        variable over states, and Its CDF F_𝛼(α) at any α ≥ 0 is: F_α(a) = ∫[
+        α(s) ≤ a ] Q(s) ds Or..: we integrate the probability mass Q(s) over all
+        states s for which α(s) ≤ a, which gives us the cumulative distribution
+        for α. Formally: F_α(a) = P( α(s) ≤ a ) = ∫ 1{ α(s) ≤ a } Q(s) ds This
+        means we now have a distribution of α(s) values across states, and the
+        lower the area under the distribution, the less policy choice the agent
+        has available. To show this, let's look at the expected entropy ratio:
+        E[ α ] = ∫ α(s) · Q(s) ds = ∫ [ H(P(o | s)) / H(Q(π | s)) ] · Q(s) ds I
+        put forward the interpretation that this formulation, which is not
+        reliant on a balanced 𝛼, is especially important: we can deduce whether
+        an agent has any policy choice available in the first place! Of course..
+        we cannot access the latent entropy distributions of an agent, H(P(o |
+        s)), and H(Q(π | s)), but we can approximate them. First, we quickly
+        show (it should be intuitive) that the distributions P and Q are solely
+        dependent on the time series of observations. Recall.. α(s)= H(P(o∣s)) /
+        H(Q(π∣s)) ..from above; here, s is a hidden state, π is a policy
+        variable, and o is an observation. So, both numerator and denominator
+        depend on the generative model and posterior (reminder: we were
+        describing a models, a minds latent entropy distributions in the above
+        section) which are fit using the time series {o_t}..: - Q(π∣s) is an
+        internal (posterior/policy) distribution that the agent computes based
+        on its model of how states relate to observations. - P(o∣s) is the
+        generative model for observations given states. Both are learned or
+        defined in reference to the complete observation sequence: The agent’s
+        posterior Q(π∣s) and generative model P(o∣s) only make sense within the
+        context of how the agent infers or predicts observations over time.
+        Hence, for a given hidden state s, these distributions, Q(π∣s) and
+        P(o∣s), are already conditioned (directly or indirectly) on the entire
+        observed data {o_t}. (...In practice, the hidden state s or the policy π
+        are not arbitrary — they are embedded in the latent state of a 'model'
+        that was 'trained'/updated using all past and possibly ongoing
+        observations.) Therefore, the shape of the random variable α (its
+        PDF/CDF) is entirely determined by the time series {oₜ} (through the
+        agent’s posterior and generative model). Even though α is expressed in
+        terms of s and π, those variables—and their distributions—are internally
+        derived from {oₜ}. Disclaimer: Within the model, this determinacy holds;
+        however, from an external standpoint, both distributions can only be
+        approximated, making it locally indeterminate. Here, please take a break
+        and remind yourself of the expected entropy ratio, and understand that
+        we have now proven empirically, that, if active inference holds, the
+        policy choice available to an agent is entirely dependent on the
+        environment the agent is interacting with. Let it be clear, that latent
+        policy execution - e.g. reasoning - is also bound by this. We have thus
+        also "formulated epistemic injustice". Second, we show that the KL
+        divergence, and therefore 𝛼 (as well as P(o∣s) and Q(π∣s)), of agents
+        who share an environment can and indeed does converge through mutual
+        observaton and individual free energy minimization We start from KL(Q ||
+        P) in the single-agent setting, and we substitute the expression for 𝛼
+        (.. = E_q(s_t)[ H(Q(π∣s_t))] / E_q(s_t,π)[ H(P(o_t | s_t))] ..), and use
+        the fact that E_q(s_t)[ Q(π|s_t) ln Q(π|s_t) ] is −E_q(s_t)[ H(Q(π|s_t))
+        ]. This yields the two main terms: one scaling with −𝛼 times the
+        expected outcome entropy, and one depending on how much the agent’s
+        policy distribution converges or diverges from generative model P:
+        KL_agent = - α * E_{q(st, π)}[ H(P(o_t | s_t)) ] - E_{q(st)}[ Q(π | st)
+        * ln P(o_t | s_t) ] Let us now define a "cluster-level" KL divergence.
+        Assuming each agent n has its own generative model P_n and posterior
+        Q_n, we can sum individual KL divergences (and optionally normalize by
+        number of agents): KL_cluster = Σ_n[ - α_n * E_{q_n(st, π)}[ H(P_n(o_t |
+        s_t)) ] - E_{q_n(st)}[ Q_n(π | st) * ln P_n(o_t | s_t) ] ] And finally,
+        to establish a divergence between a single agent and its local cluster,
+        we cross-compare agent a's distribution Q_a with each P_n in the cluster
+        and sum over n ≠ a: KL_a_cluster = Σ_{n≠a} [ - α_a * E_{q_a(st, π)}[
+        H(P_n(o_t | s_t)) ] - E_{q_a(st)}[ Q_a(π | s_t) * ln P_n(o_t | s_t) ] ]
+        *Because agent a does not have direct access to agent n’s internal
+        generative model, ln P_n is an inference or approximation from the local
+        perspective of a. This formulation captures how agent a’s policy
+        distribution diverges from every other agent n’s generative model P_n..
+        and using that, we can begin laying out an argumentative proof: Premise:
+        Each agent n (including agent a) performs free-energy minimization over
+        time, iteratively updating Q_n(st) to minimize its own variational free
+        energy F_n. F_n = KL( Q_n(s) || P_n(s|o_n) ) - ln P_n(o_n) Minimizing
+        F_n <=> Minimizing KL( Q_n(s) || P_n(s|o_n) ) Attempted argument: 1) All
+        agents eventially converge to some "ensemble-consistent" posterior
+        because each one updates Q_n(s) based on observations (including social/
+        shared observations) and its priors. 2) If the cluster is well-coupled
+        (strongly overlapping observations), P_n(s | o_n) for each agent n
+        evolves (not instantly, but progressively) toward a joint or ensemble
+        distribution P_cluster. 3) In the free-energy-minimizing limit, each
+        Q_n*(s) will be close to P_cluster(s). This implies different Q_n*(s)
+        distributions align with each other as well. 4) Consequently, the KL
+        divergence between any single agent's (Q_a, α_a) and each P_n in the
+        cluster drops over time: KL_a_cluster -> 0 as Q_a* -> P_cluster, P_n ->
+        P_cluster. Therefore: α_a * E_{q_a}[H(P_n(o_t|s_t))] and
+        E_{q_a}[Q_a(π|s_t) ln P_n(o_t|s_t)] both reach a minimum over time.
+        Conclusion: Over time, each agent's posterior and policy distribution
+        self-organizes around the shared cluster distribution. This reduces
+        single-agent vs. cluster divergence, facilitating a collective low
+        free-energy state. To bring this back to our original topic: we can now
+        clearly see why increased segmentation (be it the nuclear family unit,
+        class separation, caste systems..) of society results in increasingly
+        stagnant flow of free energy and manifests class differences not just
+        through a gradient of agency but even a gradient on maximum possible
+        intelligence. Even further than this, these entropy gradients give one
+        population an advantage over others - and, as potential is conserved,
+        any proportionality delta between population sizes will multiply this
+        advantage. Q.E.D. Liu Grey Erotema 03: 41 - 24. 01. 2025 Citations:
+        Active Inference, MIT Press 2022, addendum .. B.2.5.. is where the
+        equations I have (ab)used above are best explained Comment: ..gosh I
+        hope this is right, this caught me by surprise and I was having a TV and
+        beer evening.. ''^^
+      </p>
     </div>
   </body>
 </html>
